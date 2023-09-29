@@ -1,36 +1,13 @@
-const express = require('express');
+import express, { urlencoded, json } from 'express';
+import { todosRoutes } from './todos/todos.routes';
 
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
-let todos = [];
-
-app.get('/todos', (_req, res) => res.json(todos));
-
-app.post(
-    '/todos', (req, res) => {
-        const todo = req.body.todo;
-        todos.push(todo);
-        res.json({ success: true, todo });
-    }
-);
-
-app.delete(
-    '/todos/:index',
-    (req, res) => {
-        let index = parseInt(req.params.index, 10);
-        if (index < todos.length && index >= 0) {
-            todos.splice(index, 1);
-            res.json({ success: true });
-        } else {
-            res.status(404).json({ success: false, message: "Todo not found" });
-        }
-    }
-);
-
-app.get('/health', (req, res) => res.json({ message: 'Server is up and running!' }));
+app.get('/health', (_, res) => res.json({ message: 'Server is up and running!' }));
+app.use('/todos', todosRoutes);
 
 const PORT = process.env.PORT || 4000;
 
