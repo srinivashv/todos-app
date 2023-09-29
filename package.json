@@ -9,7 +9,8 @@
   },
   "scripts": {
     "build": "babel src --out-dir dist",
-    "start": "nodemon --exec babel-node src/app.js"
+    "start": "nodemon --exec babel-node src/app.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",

@@ -5,11 +5,24 @@ const todosRouter = Router();
 
 todosRouter.get('/', (_req, res) => res.send(todosService.getAllTodos()));
 
+todosRouter.get(
+    '/:id',
+    (req, res) => {
+        const id = req.params.id;
+        try {
+            const todo = todosService.getTodo(id);
+            return res.status(200).send({ todo });
+        } catch (error) {
+            res.status(404).send({ message: error.message });
+        }
+    }
+);
+
 todosRouter.post(
     '/', (req, res) => {
-        const todo = req.body.todo;
-        todosService.addTodo(todo);
-        res.status(201).json({ success: true, todo });
+        const text = req.body.text;
+        const todo = todosService.addTodo(text);
+        res.status(201).send({ todo });
     }
 );
 
@@ -18,12 +31,11 @@ todosRouter.delete(
     (req, res) => {
         try {
             const id = req.params.id;
-            const response = todosService.deleteTodo(id);
-            return res.status(200).json(response);
+            todosService.deleteTodo(id);
+            return res.status(200).send({ message: 'Todo deleted successfully' });
         } catch (error) {
-            res.status(404).json({ success: false, message: error });
+            res.status(404).send({ message: error.message });
         }
-
     }
 );
 
