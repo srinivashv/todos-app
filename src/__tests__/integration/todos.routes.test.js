@@ -30,10 +30,16 @@ describe(
             }
         )
 
-        it('should create a todo - success', async () => {
+        it('should create a todo - 201 CREATED - {todo: {text: New Todo}}', async () => {
             const response = await request(app).post('/todos').send({ text: 'New Todo' });
             expect(response.status).toBe(201);
             expect(response.body.todo.text).toBe('New Todo');
+        });
+
+        it('should NOT create a todo - 400 missing text  -fail', async () => {
+            const response = await request(app).post('/todos').send({});
+            expect(response.status).toBe(400);
+            expect(response.body.todo).not.toBeTruthy();
         });
 
         it('should get a todo by ID - success', async () => {

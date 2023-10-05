@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { todosService } from './todos.service';
+import { todosMiddleware } from './todos.middleware';
 
 const todosRouter = Router();
 
@@ -19,7 +20,9 @@ todosRouter.get(
 );
 
 todosRouter.post(
-    '/', (req, res) => {
+    '/',
+    todosMiddleware.validateTodoInput,
+    (req, res) => {
         const text = req.body.text;
         const todo = todosService.addTodo(text);
         res.status(201).send({ todo });
