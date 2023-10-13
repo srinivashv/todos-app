@@ -5,7 +5,7 @@ pipeline {
         stage('Install Packages') {
             steps {
                 script {
-                    sh 'yarn install'
+                    sh 'npm install'
                 }
             }
         }
@@ -13,13 +13,13 @@ pipeline {
         stage('Run the App') {
             steps {
                 script {
-                    sh 'yarn start &'
+                    sh 'npm start &'
                     sleep 5
                 }
             }
         }
 
-        stage('Visit /health route') {
+        stage('Test the app') {
             steps {
                 script {
                     sh 'curl http://localhost:3000/health'
