@@ -9,7 +9,7 @@ app.use(json());
 app.get('/health', (_, res) => res.json({ message: 'Server is up and running!' }));
 app.use('/todos', todosRoutes);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(
     PORT,
