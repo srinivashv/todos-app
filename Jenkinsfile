@@ -37,8 +37,11 @@ pipeline {
                 script {
                     sh '''
                     ssh -i /home/ubuntu/todos-app-jenkins.pem ubuntu@34.216.224.145 '
-                        cd /destination/path/on/second/instance/
-                        git pull origin your-branch-name
+                        if [ ! -d "/todos-app" ]; then
+                            git clone http://github.com/AhmadMazaal/todos-app /todos-app
+                        fi
+                        cd /todos-app
+                        git pull
                         yarn install
                         yarn start &
                     '
