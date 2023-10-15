@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    ssh -i /home/ubuntu/todos-app-jenkins.pem ubuntu@34.216.224.145 '
+                    sudo ssh -i /home/ubuntu/todos-app-jenkins.pem ubuntu@34.216.224.145 '
                         if [ ! -d "/todos-app" ]; then
                             git clone http://github.com/AhmadMazaal/todos-app /todos-app
                         fi
