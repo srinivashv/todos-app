@@ -15,14 +15,6 @@ pipeline {
             }
         }
 
-        stage('Check path') {
-            steps {
-                script {
-                    sh 'pwd'
-                }
-            }
-        }
-
         stage('Run the App') {
             steps {
                 script {
@@ -34,6 +26,8 @@ pipeline {
         stage('Test the app') {
             steps {
                 script {
+                    sh 'pm2 logs'
+                    sh 'pm2 status'
                     sh 'curl http://localhost:3000/health'
                 }
             }
