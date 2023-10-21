@@ -40,15 +40,24 @@ pipeline {
             }
         }  
 
-        stage('Deploy') {
+        stage('Add Host to known_hosts') {
+            steps {
+                script {
+                    sh '''
+                        ssh-keyscan -H $PRODUCTION_IP_ADRESSS >> /var/lib/jenkins/.ssh/known_hosts
+                    '''
+                }
+            }
+        }
 
+        stage('Deploy') {
                 environment {
                     DEPLOY_SSH_KEY = credentials('AWS_INSTANCE_SSH')
                 }
 
                 steps {
                     sh '''
-                        ssh -v -i $DEPLOY_SSH_KEY ubuntu@52.32.98.233 '
+                        ssh -v -i $DEPLOY_SSH_KEY ubuntu@$PRODUCTION_IP_ADRESSS '
                             
                             if [ ! -d "todos-app" ]; then
                                 git clone https://github.com/AhmadMazaal/todos-app.git todos-app
