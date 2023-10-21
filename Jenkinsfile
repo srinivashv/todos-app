@@ -56,7 +56,7 @@ pipeline {
                                 git pull
                             fi
                             yarn install
-                            yarn start &
+                            yarn start
                         '
                     '''
                 }
