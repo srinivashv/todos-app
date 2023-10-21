@@ -57,7 +57,11 @@ pipeline {
                                 git pull
                             fi
                             yarn install
-                            yarn start:pm2
+                            if pm2 describe toods-app > /dev/null ; then
+                            pm2 restart toods-app
+                            else
+                                yarn start:pm2
+                            fi
                         '
                     '''
                 }
