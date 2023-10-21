@@ -19,6 +19,7 @@ pipeline {
             steps {
                 script {
                     sh 'yarn start:pm2'
+                    sleep 5
                 }
             }
         }
@@ -26,8 +27,6 @@ pipeline {
         stage('Test the app') {
             steps {
                 script {
-                    sh 'pm2 logs'
-                    sh 'pm2 status'
                     sh 'curl http://localhost:3000/health'
                 }
             }
