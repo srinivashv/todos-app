@@ -48,7 +48,7 @@ pipeline {
 
                 steps {
                     sh '''
-                        ssh -v -i $DEPLOY_SSH_KEY ubuntu@$PRODUCTION_IP_ADRESSS '
+                        ssh -v -i $DEPLOY_SSH_KEY ubuntu@172.31.16.161 '
                             
                             if [ ! -d "todos-app" ]; then
                                 git clone https://github.com/AhmadMazaal/todos-app.git todos-app
