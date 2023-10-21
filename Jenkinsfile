@@ -32,20 +32,20 @@ pipeline {
             }
         }
 
-        stage('Deploy to Production') {
+        stage('Deploy') {
             steps {
-                script {
-                    sh '''
-                    sudo ssh -i /home/ubuntu/todos-app-jenkins.pem ubuntu@34.216.224.145 '
-                        if [ ! -d "/todos-app" ]; then
-                            git clone http://github.com/AhmadMazaal/todos-app /todos-app
-                        fi
-                        cd /todos-app
-                        git pull
-                        yarn install
-                        yarn start &
-                    '
-                    '''
+                withCredentials([sshUserPrivateKey(credentialsId: 'AWS_INSTANCE_SSH', keyFileVariable: 'SSH_KEY')]) {
+                    sh """
+                        ssh -i ${SSH_KEY} ubuntu@44.201.190.109 '
+                            if [ ! -d "/todos-app" ]; then
+                                git clone http://github.com/AhmadMazaal/todos-app /todos-app
+                            fi
+                            cd /todos-app
+                            git pull
+                            yarn install
+                            yarn start &
+                        '
+                    """
                 }
             }
         }
