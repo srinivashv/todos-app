@@ -32,11 +32,10 @@ pipeline {
             }
         }
 
-        stage('Check node version') {
+        stage('Cleanup') {
             steps {
                 script {
-                    sh 'node -v'
-                    sh 'which node'
+                    sh 'pkill -f "node"'
                 }
             }
         }
