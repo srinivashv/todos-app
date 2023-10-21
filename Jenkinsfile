@@ -18,8 +18,8 @@ pipeline {
         stage('Run the App') {
             steps {
                 script {
-                    sh 'yarn start &'
-                    sleep 10
+                    sh 'yarn start:pm2'
+                    sleep 5
                 }
             }
         }
@@ -32,13 +32,13 @@ pipeline {
             }
         }
 
-        stage('Cleanup') {
+        stage('Stop the App') {
             steps {
                 script {
-                    sh 'pkill -f "node"'
+                    sh 'pm2 stop todos-app'
                 }
             }
-        }
+        }  
 
         stage('Deploy') {
                 environment {
