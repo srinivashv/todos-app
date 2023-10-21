@@ -41,12 +41,15 @@ pipeline {
         }  
 
         stage('Deploy') {
+
                 environment {
                     DEPLOY_SSH_KEY = credentials('AWS_INSTANCE_SSH')
                 }
+
                 steps {
                     sh '''
-                        ssh -i $DEPLOY_SSH_KEY ubuntu@52.38.17.92 '
+                        sxsh -i $DEPLOY_SSH_KEY ubuntu@18.236.82.216 '
+                            
                             if [ ! -d "todos-app" ]; then
                                 git clone https://github.com/AhmadMazaal/todos-app.git todos-app
                                 cd todos-app
@@ -54,7 +57,9 @@ pipeline {
                                 cd todos-app
                                 git pull
                             fi
+
                             yarn install
+                            
                             if pm2 describe todos-app > /dev/null ; then
                             pm2 restart todos-app
                             else
