@@ -57,7 +57,7 @@ pipeline {
                                 git pull
                             fi
                             yarn install
-                            pm2 start src/app.js --name "todos-app" || pm2 restart "todos-app"
+                            yarn start:pm2
                         '
                     '''
                 }
