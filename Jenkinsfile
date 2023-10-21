@@ -56,8 +56,8 @@ pipeline {
                                 git pull
                             fi
                             yarn install
-                            if pm2 describe toods-app > /dev/null ; then
-                            pm2 restart toods-app
+                            if pm2 describe tods-app > /dev/null ; then
+                            pm2 restart tods-app
                             else
                                 yarn start:pm2
                             fi
