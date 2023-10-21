@@ -32,6 +32,15 @@ pipeline {
             }
         }
 
+        stage('Check node version') {
+            steps {
+                script {
+                    sh 'node -v'
+                    sh 'which node'
+                }
+            }
+        }
+
         stage('Deploy') {
                 environment {
                     DEPLOY_SSH_KEY = credentials('AWS_INSTANCE_SSH')
