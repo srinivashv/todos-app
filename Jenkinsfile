@@ -47,7 +47,7 @@ pipeline {
                 }
                 steps {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no -i $DEPLOY_SSH_KEY ubuntu@52.42.90.200 '
+                        ssh -o StrictHostKeyChecking=no -i $DEPLOY_SSH_KEY ubuntu@52.38.17.92 '
                             cd/
                             if [ ! -d "todos-app" ]; then
                                 git clone https://github.com/AhmadMazaal/todos-app.git todos-app
