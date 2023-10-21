@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     sh 'yarn start &'
-                    sleep 5
+                    sleep 10
                 }
             }
         }
