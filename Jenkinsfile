@@ -40,12 +40,12 @@ pipeline {
                     sh '''
                         ssh -o StrictHostKeyChecking=no -i $DEPLOY_SSH_KEY ubuntu@34.221.182.170 '
                            if [ ! -d "todos-app" ]; then
-                                git clone https://github.com/AhmadMazaal/todos-app.git
-                                cd todos-app
+                                git clone https://github.com/AhmadMazaal/todos-app.git todos-app
                             else
                                 cd todos-app
                                 git pull
                             fi
+                            cd todos-app
                             yarn install
                             yarn start &
                         '
