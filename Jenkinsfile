@@ -15,13 +15,18 @@ pipeline {
             }
         }
 
+        stage('Check path') {
+            steps {
+                script {
+                    sh 'pwd'
+                }
+            }
+        }
+
         stage('Run the App') {
             steps {
                 script {
-                    sh '''
-                    cd todos-app
-                    yarn start:pm2
-                    '''
+                    sh 'yarn start:pm2'
                 }
             }
         }
