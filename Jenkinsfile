@@ -33,10 +33,12 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                withCredentials([sshUserPrivateKey(credentialsId: 'AWS_INSTANCE_SSH', keyFileVariable: 'SSH_KEY')]) {
-                    sh """
-                        ssh -i ${SSH_KEY} ubuntu@44.201.190.109 '
+                environment {
+                    DEPLOY_SSH_KEY = credentials('AWS_INSTANCE_SSH')
+                }
+                steps {
+                    sh '''
+                        ssh -i $DEPLOY_SSH_KEY ubuntu@54.202.58.222 '
                             if [ ! -d "/todos-app" ]; then
                                 git clone http://github.com/AhmadMazaal/todos-app /todos-app
                             fi
@@ -45,9 +47,8 @@ pipeline {
                             yarn install
                             yarn start &
                         '
-                    """
+                    '''
                 }
-            }
         }
 
     }
