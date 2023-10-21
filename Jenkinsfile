@@ -19,7 +19,6 @@ pipeline {
             steps {
                 script {
                     sh 'yarn start:pm2'
-                    sleep 5
                 }
             }
         }
